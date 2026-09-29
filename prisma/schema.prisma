@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model News {
+  id        String   @id @default(cuid())
+  title     String
+  summary   String
+  content   String?
+  imageUrl  String?
+  category  String   @default("ΝΕΑ")
+  featured  Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model Player {
+  id          String   @id @default(cuid())
+  no          Int      @unique
+  firstName   String
+  lastName    String
+  position    String
+  positionEn  String
+  age         Int
+  nationality String   @default("Ελλάδα")
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model Coach {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  role        String
+  age         Int?
+  nationality String   @default("Ελλάδα")
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model Match {
+  id          String   @id @default(cuid())
+  date        String
+  time        String
+  competition String
+  round       String
+  home        String
+  away        String
+  homeShort   String
+  awayShort   String
+  scoreHome   Int?
+  scoreAway   Int?
+  done        Boolean  @default(false)
+  result      String?
+  venue       String
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+}
+
+model MembershipRequest {
+  id             Int      @id @default(autoincrement())
+  fullName       String
+  phone          String
+  email          String?
+  tier           String
+  deliveryMethod String   @default("PICKUP")
+  address        String?
+  notes          String?
+  status         String   @default("PENDING")
+  createdAt      DateTime @default(now())
+}
+
+model Transfer {
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  position      String
+  positionShort String
+  club          String
+  age           Int
+  nationality   String   @default("GR")
+  type          String
+  imageUrl      String?
+  createdAt     DateTime @default(now())
+}
