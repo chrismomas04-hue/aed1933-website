@@ -1,6 +1,7 @@
 import React from "react";
 import { Oswald, Inter } from "next/font/google";
-import "./globals.css";
+import "./globals.css"; 
+import { Analytics } from "@vercel/analytics/next";
 
 const oswald = Oswald({
   subsets: ["latin"],
@@ -16,7 +17,10 @@ const inter = Inter({
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="el" className={`${oswald.variable} ${inter.className}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Analytics/>
+      </body>
     </html>
   );
 }
